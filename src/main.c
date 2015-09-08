@@ -21,12 +21,12 @@
 
 #include "main.h"
 #include "attitude.h"
-
+#include "controller.h"
 
 int main()
 {
 
-	float GyroData[3] = {0};
+	float Toservo[3] = {0};
 
 	L3GD20_Configuration();
 	
@@ -34,7 +34,7 @@ int main()
 	while(1)
 	{
 
-		L3GD20_ReadGyro(GyroData);
+		AttitudeControl(Toservo);
 
 		for(int i=0; i<100000; i++);
 	}

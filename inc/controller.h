@@ -1,6 +1,6 @@
-  /*
+/*:
   ******************************************************************************
-  * @file    : attitude.h
+  * @file    : controller.h
   * @author  : Chang, Wei-Chieh
   * @version : V1.0.0
   * @date    : 07-September-2015
@@ -17,13 +17,28 @@
   ******************************************************************************
   */
 
-#ifndef __ATTITUDE_H
-#define __ATTITUDE_H
+#ifndef __CONTROLLER_H
+#define __CONTROLLER_H
 
 #include "main.h"
 
-void L3GD20_Configuration(void);
-void L3GD20_ReadGyro(float*);
-void Eulerangle(float*);
+/*
+#define InnerloopPitch 1;
+#define InnerloopRoll  1; 
+#define InnerloopYaw  1;  
+
+
+#define OutterloopPitch  1;
+#define OutterloopRoll  1;
+#define OutterloopYaw  1;
+*/
+
+
+/* the function of controller */
+float YawControl( float, float, float, float );
+float RollControl( float, float, float, float );
+float PitchControl( float, float, float, float );
+void AttitudeControl( float*);
 
 #endif
+

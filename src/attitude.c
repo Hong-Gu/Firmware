@@ -1,4 +1,4 @@
-/*
+/*:
   ******************************************************************************
   * @file    : attitude.c
   * @author  : Chang, Wei-Chieh
@@ -15,7 +15,7 @@
   * along with MAIN. If not, see <http://www.gnu.org/licenses/>.
   *
   ******************************************************************************
-*/
+  */
 
 #include"attitude.h"
 
@@ -73,7 +73,7 @@ void L3GD20_ReadGyro(float* pfData)
   	}	
 
   	/* divide by sensitivity in 250dps */
-  	for(i=0; i<3; i++)
+  	for( int i=0; i<3; i++)
   	{
     		pfData[i] = (float)RawData[i] / 114.285f;
   	}	
