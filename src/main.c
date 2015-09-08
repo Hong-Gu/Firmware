@@ -27,16 +27,15 @@ int main()
 {
 
 	float Toservo[3] = {0};
-
-	L3GD20_Configuration();
 	
-
 	while(1)
 	{
 
 		AttitudeControl(Toservo);
 
-		for(int i=0; i<100000; i++);
+		for(int i=0; i<100000; i++)
+		{	
+		}
 	}
 
 	return 0;

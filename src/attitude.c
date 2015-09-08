@@ -87,7 +87,8 @@ void Eulerangle(float* AttiData)
   	float dE[4] = {0};
 	
 	/* read the anguler velocity */
-  	L3GD20_ReadGyro(GyroData);  
+  	L3GD20_Configuration();
+	L3GD20_ReadGyro(GyroData);  
 
   	/* state euqation of Quaternions */
   	dE[0] = 0.5 * ( -GyroData[0] * E[1] - GyroData[1] * E[2] - GyroData[2] * E[3] );

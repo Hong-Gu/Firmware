@@ -13,45 +13,31 @@
   * along with MAIN. If not, see <http://www.gnu.org/licenses/>.
   *
   ******************************************************************************
- 
- */
+  */
 
 #include"attitude.h"
 #include"controller.h"
 
-/* control commmand of yaw control */
-float YawControl( float InnerloopYaw, float OutterloopYaw, float Psi, float R)
-{
-	 return InnerloopYaw * R + OutterloopYaw * Psi;	
-};
-
-/* control command of roll control */
-float RollControl(float InnerloopRoll, float OutterloopRoll, float Phi, float Q)
-{
-        return InnerloopRoll * Q + OutterloopRoll * Phi;
-	//	RollCoom = 1.0 * Q + 1.0 * Phi;
-};
-
-/* control command of pitch control */
-float PitchControl(float InnerloopPitch, float OutterloopPitch, float Theta, float P)
-{
-        return InnerloopPitch * P + OutterloopPitch * Theta;
-	//YawCoom = 1.0 * P + 1.0 * Theta;
-};
-
 /* the attitude command function */
-void AttitudeControl(float* AttiCoomData)
+void AttitudeControl(float* AttiCommData)
 {
+	/* */
+	uint8_t Ki[3] = { 1, 1, 1 };
+	uint8_t Ko[3] = { 1, 1, 1 };
 	float RateData[3] = {0};
 	float AttiData[3] = {0};
+	float AttiDesr[3] = {0};
+	float ErroData[3] = {0};
 
 	/* read six degree of freedom data */
 	L3GD20_ReadGyro(RateData);
 	Eulerangle(AttiData);
-
-	/*  */
-	AttiCoomData[0] = YawControl( 1.0, 1.0, AttiData[0], RateData[0] );
-	AttiCoomData[1] = RollControl( 1.0, 1.0, AttiData[1], RateData[1] );
-	AttiCoomData[2] = PitchControl( 1.0, 1.0, AttiData[2], RateData[2] ); 	
+	
+	/* compute the error signal and commmand */
+	for( int i=0; i<3; i++ )
+	{
+		ErroData[i] = AttiDesr[i] - AttiData[i];
+		AttiCommData[i] = Ki[i] * ( Ko[i] * ErroData[i] - RateData[i] );
+	} 	
 
 };
